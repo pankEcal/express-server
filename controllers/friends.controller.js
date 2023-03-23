@@ -1,3 +1,5 @@
+const path = require("path");
+
 // importing models
 const model = require("../models/friends.model");
 const friendsDb = model.friends;
@@ -46,9 +48,16 @@ function postFriend(req, res) {
   }
 }
 
+// method to handle GET request for "friends/photo"
+function getPhoto(req, res) {
+  const filePath = path.join(__dirname, "..", "public", "images", "coder.jpg");
+  res.sendFile(filePath);
+}
+
 // exporting defined methods
 module.exports = {
   getFriends,
   getFriend,
   postFriend,
+  getPhoto,
 };

@@ -7,6 +7,7 @@ const friendsController = require("../controllers/friends.controller");
 const friendsRouter = express.Router();
 
 // endpoints and controllers implementation to make requests for friends API
+friendsRouter.get("/photo", friendsController.getPhoto);
 friendsRouter.get("/", friendsController.getFriends);
 friendsRouter.get("/:friendId", friendsController.getFriend);
 friendsRouter.post("/new", friendsController.postFriend);

@@ -32,8 +32,28 @@ function postMessage(req, res) {
   }
 }
 
+function putMessage(req, res) {
+  const { id, message } = req.body;
+
+  if ((!message || !id) && messageDb.length > id) {
+    res.status(404).json({
+      error: "message not found",
+    });
+  } else {
+    const messageIndex = id;
+    const newMessage = {
+      id: id,
+      message: message,
+    };
+    // updating existing message with new one
+    messageDb[messageIndex] = newMessage;
+    res.json(newMessage);
+  }
+}
+
 module.exports = {
   getMessages,
   getMessage,
   postMessage,
+  putMessage,
 };

@@ -1,12 +1,7 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 
 // creating express server
 const app = express();
-
-// parse the incoming data from POST request
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 const PORT = 8000;
 
@@ -21,6 +16,16 @@ const friends = [
     name: "user 2",
   },
 ];
+
+// setting middleware. runs before reach request
+// next() will allow the flow to respective route handlers
+app.use((req, res, next) => {
+  console.log(`method: ${req.method}, url: ${req.url}`);
+  next();
+});
+
+// use express middleware to parse the incoming data stream to JSON
+app.use(express.json());
 
 app.get("/friends", (req, res) => {
   res.json(friends);
@@ -45,7 +50,21 @@ app.get("/messages", (req, res) => {
 });
 
 app.post("/friends/new", (req, res) => {
-  res.json(req.body);
+  // create new friend object and push to existing data
+  const { id, name } = req.body;
+  // error handling based on value
+  if (!name) {
+    res.status(400).json({
+      error: "missing name value!",
+    });
+  } else {
+    const newFriend = {
+      id: id,
+      name: name,
+    };
+    friends.push(newFriend);
+    res.json(newFriend);
+  }
 });
 
 app.listen(PORT, () => {

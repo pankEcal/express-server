@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 
 // imorting routes
 const friendsRouter = require("./routes/friends.routes");
@@ -22,6 +23,9 @@ app.use(express.json());
 // implment routes middlewares and mounting relevent routes
 app.use("/friends", friendsRouter);
 app.use("/messages", messagesRouter);
+
+// implement static serving from public folder with "/static"
+app.use("/static", express.static(path.join(__dirname, "public")));
 
 // initialize express server on defined PORT
 app.listen(PORT, () => {

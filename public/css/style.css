@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 5rem;
+}
+
+h1 {
+  margin-bottom: 2rem;
+}

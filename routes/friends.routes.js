@@ -14,3 +14,11 @@ friendsRouter.post("/new", friendsController.postFriend);
 
 // export friends router
 module.exports = friendsRouter;
+
+// Templating Engines
+
+// - all templating engine is same with different syntax
+// - allows to populate HTML with data before serving on client
+// - need to define which templating engine is being used
+// - app.set("view engine", "hbs")
+// - app.set("views", path.join(__dirname, "views"))

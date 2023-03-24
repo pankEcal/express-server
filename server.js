@@ -8,6 +8,12 @@ const messagesRouter = require("./routes/messages.routes");
 // create new express app
 const app = express();
 
+// set handlebar as view engine and provide path for view
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
+// provide static path to serve static files
+app.use(express.static(path.join(__dirname, "public")));
+
 // define app port
 const PORT = 8000;
 
@@ -19,6 +25,14 @@ app.use((req, res, next) => {
 
 // use express middleware to parse the incoming data stream to JSON
 app.use(express.json());
+
+// implement templating engine to serve "/"
+app.get("/", (req, res) => {
+  res.render("index", {
+    title: "title from hbr",
+    caption: "caption from hbr",
+  });
+});
 
 // implment routes middlewares and mounting relevent routes
 app.use("/friends", friendsRouter);
